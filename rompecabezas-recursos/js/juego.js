@@ -21,7 +21,7 @@ Cada elemento de este arreglo deberá ser mostrado en la lista con id 'lista-ins
 Para eso deberás usar la función ya implementada mostrarInstruccionEnLista().
 Podés ver su implementación en la ultima parte de este codigo. */
 function mostrarInstrucciones(instrucciones) {
-  for (i = 0; i < instrucciones.length; i++) {
+  for (var i = 0; i < instrucciones.length; i++) {
     mostrarInstruccionEnLista(instrucciones[i], "lista-instrucciones");
   }
 }
@@ -34,12 +34,16 @@ function agregarUltMovimiento(direccion) {
 /* Esta función va a chequear si el Rompecabezas esta en la posicion ganadora. 
 Existen diferentes formas de hacer este chequeo a partir de la grilla. */
 function chequearSiGano() {
-  grillaGanadora = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
-  if (grilla === grillaGanadora) {
-    mostrarCartelGanador();
-    return true;
-  } else {
-    return false;
+  var grillaGanadora = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+  for (var i = 0; i < grilla.length; i++) {
+    for (var j = 0; j < grilla[i].length; j++) {
+      if (grilla[i][j] !== grillaGanadora[i][j]) {
+        return false;
+      } else {
+        mostrarCartelGanador();
+        return true;
+      }
+    }
   }
 }
 
@@ -254,6 +258,7 @@ function capturarTeclas() {
       moverEnDireccion(evento.which);
       console.log(event.which);
       var gano = chequearSiGano();
+      console.log(gano);
       if (gano) {
         setTimeout(function() {
           mostrarCartelGanador();
@@ -269,7 +274,7 @@ y ejecutando la función para que se capturen las teclas que
 presiona el usuario */
 function iniciar() {
   mostrarInstrucciones(instrucciones);
-  mezclarPiezas(1000);
+  mezclarPiezas(30);
   capturarTeclas();
 }
 
