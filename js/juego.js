@@ -7,6 +7,9 @@ var instrucciones = [
 // Arreglo para ir guardando los movimientos que se vayan realizando
 var movimientos = [];
 
+// Cantidad de veces que se mezclara
+var cantMezclar = 40;
+
 // Representación de la grilla. Cada número representa a una pieza.
 // El 9 es la posición vacía
 var grilla = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
@@ -34,13 +37,23 @@ function agregarUltMovimiento(direccion) {
 /* Esta función va a chequear si el Rompecabezas esta en la posicion ganadora. 
 Existen diferentes formas de hacer este chequeo a partir de la grilla. */
 function chequearSiGano() {
+  debugger;
   var grillaGanadora = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
   for (var i = 0; i < grilla.length; i++) {
     for (var j = 0; j < grilla[i].length; j++) {
-      if (grilla[i][j] !== grillaGanadora[i][j]) {
+      if (
+        grilla[0][0] !== grillaGanadora[0][0] ||
+        grilla[0][1] !== grillaGanadora[0][1] ||
+        grilla[0][2] !== grillaGanadora[0][2] ||
+        grilla[1][0] !== grillaGanadora[1][0] ||
+        grilla[1][1] !== grillaGanadora[1][1] ||
+        grilla[1][2] !== grillaGanadora[1][2] ||
+        grilla[2][0] !== grillaGanadora[2][0] ||
+        grilla[2][1] !== grillaGanadora[2][1] ||
+        grilla[2][2] !== grillaGanadora[2][2]
+      ) {
         return false;
       } else {
-        mostrarCartelGanador();
         return true;
       }
     }
@@ -50,9 +63,8 @@ function chequearSiGano() {
 // Implementar alguna forma de mostrar un cartel que avise que ganaste el juego
 function mostrarCartelGanador() {
   alert(
-    `Ganaste, te tomó ${
-      movimientos.length
-    } movimientos. ¿Podés hacerlo en menos?`
+    `Ganaste, te tomó ${movimientos.length -
+      cantMezclar} movimientos. ¿Podés hacerlo en menos?`
   );
 }
 
@@ -256,9 +268,7 @@ function capturarTeclas() {
       evento.which === codigosDireccion.IZQUIERDA
     ) {
       moverEnDireccion(evento.which);
-      console.log(event.which);
       var gano = chequearSiGano();
-      console.log(gano);
       if (gano) {
         setTimeout(function() {
           mostrarCartelGanador();
@@ -274,7 +284,7 @@ y ejecutando la función para que se capturen las teclas que
 presiona el usuario */
 function iniciar() {
   mostrarInstrucciones(instrucciones);
-  mezclarPiezas(30);
+  mezclarPiezas(cantMezclar);
   capturarTeclas();
 }
 
