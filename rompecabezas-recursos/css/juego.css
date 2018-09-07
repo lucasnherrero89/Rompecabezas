@@ -16,31 +16,31 @@ li {
 }
 li::before {
   content: "• ";
-  color: #EC6778;
+  color: #ec6778;
 }
 
 .col-40 h1 {
   font-size: 20px;
-  color: #E84A5F;
+  color: #e84a5f;
 }
 
-.col-40, .col-60 {
+.col-40,
+.col-60 {
   display: table-cell;
   margin: 0;
   vertical-align: top;
 }
 .col-40 {
-  background: #FFF;
+  background: #fff;
   padding: 30px;
   color: #000;
 }
 
 .col-60 {
-  background: #E84A5F;
-
+  background: #e84a5f;
 }
 
-#flecha{
+#flecha {
   font-size: 60px;
 }
 
@@ -54,23 +54,28 @@ li::before {
 }
 
 @keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 #juego {
-  background-color: magenta ;
+  background-color: magenta;
   width: 600px;
   height: 600px;
   padding: 2px;
 }
 
-.dinopiecita img {
+.dinopiecita img,
+#pseudo-img {
   box-sizing: border-box;
   height: 198px;
-  width: 198px;;
+  width: 198px;
   margin: 1px;
-  float:left;
+  float: left;
 }
 
 #objetivo-img {

@@ -35,7 +35,7 @@ function agregarUltMovimiento(direccion) {
 Existen diferentes formas de hacer este chequeo a partir de la grilla. */
 function chequearSiGano() {
   grillaGanadora = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
-  if (grilla == grillaGanadora) {
+  if (grilla === grillaGanadora) {
     mostrarCartelGanador();
     return true;
   } else {
@@ -81,8 +81,7 @@ function actualizarPosicionVacia(nuevaFila, nuevaColumna) {
 
 // Para chequear si la posicón está dentro de la grilla.
 function posicionValida(fila, columna) {
-  debugger;
-  if (0 <= fila && fila <= 2 && 0 <= columna && columna <= 2) {
+  if (0 <= fila && fila <= 2 && (0 <= columna && columna <= 2)) {
     return true;
   } else {
     return false;
@@ -253,7 +252,7 @@ function capturarTeclas() {
       evento.which === codigosDireccion.IZQUIERDA
     ) {
       moverEnDireccion(evento.which);
-
+      console.log(event.which);
       var gano = chequearSiGano();
       if (gano) {
         setTimeout(function() {
@@ -270,7 +269,7 @@ y ejecutando la función para que se capturen las teclas que
 presiona el usuario */
 function iniciar() {
   mostrarInstrucciones(instrucciones);
-  mezclarPiezas(30);
+  //mezclarPiezas(30);
   capturarTeclas();
 }
 
