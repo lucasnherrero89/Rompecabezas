@@ -75,8 +75,8 @@ function intercambiarPosicionesGrilla(
 
 // Actualiza la posición de la pieza vacía
 function actualizarPosicionVacia(nuevaFila, nuevaColumna) {
-  var filaVacia = nuevaFila;
-  var columnaVacia = nuevaColumna;
+  filaVacia = nuevaFila;
+  columnaVacia = nuevaColumna;
 }
 
 // Para chequear si la posicón está dentro de la grilla.
@@ -269,7 +269,7 @@ y ejecutando la función para que se capturen las teclas que
 presiona el usuario */
 function iniciar() {
   mostrarInstrucciones(instrucciones);
-  //mezclarPiezas(30);
+  mezclarPiezas(1000);
   capturarTeclas();
 }
 
