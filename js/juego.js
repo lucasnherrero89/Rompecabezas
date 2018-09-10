@@ -2,13 +2,12 @@
 var instrucciones = [
   "Armá el rompecabezas",
   "Usa las flechitas",
-  "Las del teclado"
+  "Las del teclado",
+  "El rompecabezas es un Pikachu"
 ];
 // Arreglo para ir guardando los movimientos que se vayan realizando
 var movimientos = [];
-
-// Cantidad de veces que se mezclara
-var cantMezclar = 40;
+var movMezcla = 0;
 
 // Representación de la grilla. Cada número representa a una pieza.
 // El 9 es la posición vacía
@@ -37,7 +36,6 @@ function agregarUltMovimiento(direccion) {
 /* Esta función va a chequear si el Rompecabezas esta en la posicion ganadora. 
 Existen diferentes formas de hacer este chequeo a partir de la grilla. */
 function chequearSiGano() {
-  debugger;
   var grillaGanadora = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
   for (var i = 0; i < grilla.length; i++) {
     for (var j = 0; j < grilla[i].length; j++) {
@@ -49,8 +47,7 @@ function chequearSiGano() {
         grilla[1][1] !== grillaGanadora[1][1] ||
         grilla[1][2] !== grillaGanadora[1][2] ||
         grilla[2][0] !== grillaGanadora[2][0] ||
-        grilla[2][1] !== grillaGanadora[2][1] ||
-        grilla[2][2] !== grillaGanadora[2][2]
+        grilla[2][1] !== grillaGanadora[2][1]
       ) {
         return false;
       } else {
@@ -64,7 +61,7 @@ function chequearSiGano() {
 function mostrarCartelGanador() {
   alert(
     `Ganaste, te tomó ${movimientos.length -
-      cantMezclar} movimientos. ¿Podés hacerlo en menos?`
+      movMezcla} movimientos. ¿Podés hacerlo en menos?`
   );
 }
 
@@ -106,7 +103,8 @@ function posicionValida(fila, columna) {
 
 /* Movimiento de fichas, en este caso la que se mueve es la blanca intercambiando su posición con otro elemento.
 Las direcciones están dadas por números que representa: arriba (38), abajo (40), izquierda (37), derecha (39) */
-function moverEnDireccion(direccion) {
+function moverEnDireccion(direccion, origen) {
+  console.log("Se mueve: " + direccion);
   var nuevaFilaPiezaVacia;
   var nuevaColumnaPiezaVacia;
   // Mueve pieza hacia la abajo, reemplazandola con la blanca
@@ -146,8 +144,15 @@ function moverEnDireccion(direccion) {
     );
     actualizarPosicionVacia(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
     agregarUltMovimiento(direccion);
+    if (origen == "mezclar") {
+      movMezcla++;
+    }
   }
 }
+
+var resolverAutomaticamente = function(movimientos) {
+  for (i = movimientos.length; i >= 0; i--) {}
+};
 
 //////////////////////////////////////////////////////////
 ////////A CONTINUACIÓN FUNCIONES YA IMPLEMENTADAS.////////
@@ -247,8 +252,7 @@ function mezclarPiezas(veces) {
   ];
 
   var direccion = direcciones[Math.floor(Math.random() * direcciones.length)];
-  moverEnDireccion(direccion);
-
+  moverEnDireccion(direccion, "mezclar");
   setTimeout(function() {
     mezclarPiezas(veces - 1);
   }, 100);
@@ -267,7 +271,7 @@ function capturarTeclas() {
       evento.which === codigosDireccion.DERECHA ||
       evento.which === codigosDireccion.IZQUIERDA
     ) {
-      moverEnDireccion(evento.which);
+      moverEnDireccion(evento.which, "usuario");
       var gano = chequearSiGano();
       if (gano) {
         setTimeout(function() {
@@ -279,12 +283,12 @@ function capturarTeclas() {
   };
 }
 
-/* Se inicia el rompecabezas mezclando las piezas 60 veces 
+/* Se inicia el rompecabezas mezclando las piezas indicadas
 y ejecutando la función para que se capturen las teclas que 
 presiona el usuario */
 function iniciar() {
   mostrarInstrucciones(instrucciones);
-  mezclarPiezas(cantMezclar);
+  mezclarPiezas(3);
   capturarTeclas();
 }
 
